@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class TeamResponse {
-    private String skuCode;
-    private boolean isInStock;
+    private String firstName;
+    private String lastName;
 }
