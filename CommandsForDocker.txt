@@ -1,3 +1,7 @@
 docker run --name MysqlTeam -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123 -d mysql
 
 docker run --name MongoCircuit -p 27017:27017 -d mongo
+
+docker run --name MysqlRace -p 3305:3305 -e MYSQL_ROOT_PASSWORD=abc123 -d mysql 
+
+docker run --name MysqlDriver -p 3304:3304 -e MYSQL_ROOT_PASSWORD=abc123 -d mysql
