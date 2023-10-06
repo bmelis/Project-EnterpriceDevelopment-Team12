@@ -15,9 +15,9 @@ import java.util.List;
 public class Race {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String raceName;
     private Date raceDate;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<RaceLineMember> raceLineMemberList;
+    private List<RaceTeam> raceTeamList;
 }

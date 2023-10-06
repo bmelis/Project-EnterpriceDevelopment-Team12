@@ -1,4 +1,7 @@
 package fact.it.race.repository;
 
-public interface RaceRepository {
+import fact.it.race.model.Race;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RaceRepository extends JpaRepository<Race, Long> {
 }
