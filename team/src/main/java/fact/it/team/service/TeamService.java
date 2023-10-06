@@ -1,13 +1,15 @@
 package fact.it.team.service;
 
 import fact.it.team.dto.TeamResponse;
-import fact.it.team.model.TeamMember;
+import fact.it.team.model.Team;
 import fact.it.team.repository.TeamRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,27 +21,29 @@ public class TeamService {
     @PostConstruct
     public void loadData() {
         if(teamRepository.count() > 0){
-            TeamMember teamMember = new TeamMember();
-            teamMember.setFirstName("Michiel");
-            teamMember.setLastName("Van Loy");
+            Team team = new Team();
+            team.setName("Mclaren");
+            team.setSince(new Date(2020, Calendar.JANUARY,12));
 
-            TeamMember teamMember1 = new TeamMember();
-            teamMember1.setFirstName("Bent");
-            teamMember1.setLastName("Melis");
+            Team team1 = new Team();
+            team1.setName("Mclaren");
+            team1.setSince(new Date(2019, Calendar.JANUARY,16));
 
-            teamRepository.save(teamMember);
-            teamRepository.save(teamMember1);
+            teamRepository.save(team);
+            teamRepository.save(team1);
         }
     }
 
-    @Transactional(readOnly = true)
-    public List<TeamResponse> isInTeam(List<String> firstName) {
 
-        return teamRepository.findByFirstName(firstName).stream()
-                .map(teamMember ->
+
+    @Transactional(readOnly = true)
+    public List<TeamResponse> isInTeam(List<String> name) {
+
+        return teamRepository.findByFirstName(name).stream()
+                .map(team ->
                         TeamResponse.builder()
-                                .firstName(teamMember.getFirstName())
-                                .lastName(teamMember.getLastName())
+                                .name(team.getName())
+                                .since(team.getSince())
                                 .build()
                 ).toList();
     }
