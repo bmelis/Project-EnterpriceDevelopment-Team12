@@ -6,17 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "racelinemember")
+@Table(name = "raceteam")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RaceLineMember {
+public class RaceTeam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String skuCode;
-    private BigDecimal price;
-    private Integer quantity;
+    private String name;
+    private Date since;
 }
