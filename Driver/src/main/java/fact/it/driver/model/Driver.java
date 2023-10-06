@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Driver")
+@Table(name = "driver")
 @Getter
 @Setter
 @AllArgsConstructor
