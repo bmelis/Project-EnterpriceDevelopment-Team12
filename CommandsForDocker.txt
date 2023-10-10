@@ -5,3 +5,10 @@ docker run --name MongoCircuit -p 27017:27017 -d mongo
 docker run --name MysqlRace -p 3305:3305 -e MYSQL_ROOT_PASSWORD=abc123 -d mysql 
 
 docker run --name MysqlDriver -p 3304:3304 -e MYSQL_ROOT_PASSWORD=abc123 -d mysql
+
+
+API PORTS:
+Team:8082
+Race:8081
+Circuit:8080
+Drivers:8079
