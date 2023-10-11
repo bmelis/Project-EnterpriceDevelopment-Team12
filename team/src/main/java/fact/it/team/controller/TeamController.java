@@ -22,4 +22,16 @@ public class TeamController {
     (@RequestParam List<String> name) {
         return teamService.isInTeam(name);
     }
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String createTeam(@RequestBody TeamRequest teamRequest) {
+        boolean result = teamService.createTeam(teamRequest);
+        return (result ? "Race created successfully" : "Race creation failed");
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<TeamResponse> getAllRaces() {
+        return teamService.getAllTeams();
+    }
 }
