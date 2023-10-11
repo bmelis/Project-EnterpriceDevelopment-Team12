@@ -1,8 +1,6 @@
 package fact.it.race.service;
 
-import fact.it.race.dto.CircuitResponse;
-import fact.it.race.dto.RaceRequest;
-import fact.it.race.dto.TeamResponse;
+import fact.it.race.dto.*;
 import fact.it.race.model.Race;
 import fact.it.race.model.RaceTeam;
 import fact.it.race.repository.RaceRepository;
@@ -11,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,49 +50,47 @@ public class RaceService {
                 .bodyToMono(CircuitResponse[].class)
                 .block();
 
-        race.getRaceTeamList().stream()
-                .map(raceTeam -> {
-                    CircuitResponse circuit = Arrays.stream(productResponseArray)
-                            .filter(p -> p.getSkuCode().equals(orderItem.getSkuCode()))
-                            .findFirst()
-                            .orElse(null);
-                    if (product != null) {
-                        orderItem.setPrice(product.getPrice());
-                    }
-                    return orderItem;
-                })
-                .collect(Collectors.toList());
-
-        orderRepository.save(order);
+//        race.getRaceTeamList().stream()
+//                .map(raceTeam -> {
+//                    CircuitResponse circuit = Arrays.stream(productResponseArray)
+//                            .filter(p -> p.getSkuCode().equals(orderItem.getSkuCode()))
+//                            .findFirst()
+//                            .orElse(null);
+//                    if (product != null) {
+//                        orderItem.setPrice(product.getPrice());
+//                    }
+//                    return orderItem;
+//                })
+//                .collect(Collectors.toList());
+//
+//        orderRepository.save(order);
         return true;
     }
 
-    public List<OrderResponse> getAllOrders() {
-        List<Order> orders = orderRepository.findAll();
+    public List<RaceResponse> getAllRaces() {
+        List<Race> races = raceRepository.findAll();
 
-        return orders.stream()
-                .map(order -> new OrderResponse(
-                        order.getOrderNumber(),
-                        mapToOrderLineItemsDto(order.getOrderLineItemsList())
+        return races.stream()
+                .map(race -> new RaceResponse(
+                        race.getRaceName(),
+                        mapToRaceTeamDto(race.getRaceTeamList())
                 ))
                 .collect(Collectors.toList());
     }
 
-    private OrderLineItem mapToOrderLineItem(OrderLineItemDto orderLineItemDto) {
-        OrderLineItem orderLineItem = new OrderLineItem();
-        orderLineItem.setPrice(orderLineItemDto.getPrice());
-        orderLineItem.setQuantity(orderLineItemDto.getQuantity());
-        orderLineItem.setSkuCode(orderLineItemDto.getSkuCode());
-        return orderLineItem;
+    private RaceTeam mapToRaceTeam(RaceTeamDto raceTeamDto) {
+        RaceTeam raceTeam = new RaceTeam();
+        raceTeam.setName(raceTeamDto.getName());
+        raceTeam.setSince(raceTeamDto.getSince());
+        return raceTeam;
     }
 
-    private List<OrderLineItemDto> mapToOrderLineItemsDto(List<OrderLineItem> orderLineItems) {
-        return orderLineItems.stream()
-                .map(orderLineItem -> new OrderLineItemDto(
-                        orderLineItem.getId(),
-                        orderLineItem.getSkuCode(),
-                        orderLineItem.getPrice(),
-                        orderLineItem.getQuantity()
+    private List<RaceTeamDto> mapToRaceTeamDto(List<RaceTeam> raceTeams) {
+        return raceTeams.stream()
+                .map(raceTeam -> new RaceTeamDto(
+                        raceTeam.getId(),
+                        raceTeam.getName(),
+                        raceTeam.getSince()
                 ))
                 .collect(Collectors.toList());
     }
