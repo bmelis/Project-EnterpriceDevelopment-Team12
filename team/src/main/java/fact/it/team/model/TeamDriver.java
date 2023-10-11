@@ -6,21 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
-
 @Entity
-@Table(name = "team")
+@Table(name = "teamdriver")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Team {
+public class TeamDriver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Date since;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<TeamDriver> teamDriverList;
+    private String firstName;
+    private String lastName;
 }
