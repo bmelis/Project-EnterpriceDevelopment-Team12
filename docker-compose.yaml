@@ -1,0 +1,115 @@
+services:
+ mongo-circuit:
+  image: mongo:latest
+  ports:
+    - 27017:27017
+  volumes:
+    - mongodb_product_data:/data/db
+    
+ mysql-race:
+  image: mysql:latest
+  ports:
+    - 3305:3305
+  volumes:
+    - mysql_order_data:/var/lib/mysql
+  environment:
+   MYSQL_ROOT_PASSWORD: abc123
+    
+ mysql-team:
+  image: mysql:latest
+  ports:
+    - 3307:3306
+  volumes:
+    - mysql_inventory_data:/var/lib/mysql
+  environment:
+   MYSQL_ROOT_PASSWORD: abc123
+
+ mysql-driver:
+  image: mysql:latest
+  ports:
+    - 3304:3304
+  volumes:
+    - mysql_inventory_data:/var/lib/mysql
+  environment:
+   MYSQL_ROOT_PASSWORD: abc123
+    
+ circuit-service:
+  depends_on:
+    - mongo-circuit
+  image: bentmelis/circuit
+  ports:
+    - 8080:8080
+  links:
+    - mongo-circuit
+  environment:
+   MONGODB_PORT: 27017
+   MONGODB_HOST: mongo-circuit
+
+ driver-service:
+  depends_on:
+    - mysql-driver
+  image: bentmelis/driver
+  ports:
+    - 8079:8079
+  links:
+    - mysql-driver
+  environment:
+   MYSQL_DB_USERNAME: root
+   MYSQL_DB_PASSWORD: abc123
+   MYSQL_DB_HOST: mysql-driver
+   MYSQL_DB_PORT: 3304  
+   
+ team-service:
+  depends_on:
+    - mysql-team
+    - driver-service
+  image: bentmelis/team
+  ports:
+    - 8082:8082
+  links:
+    - mysql-team
+    - driver-service
+  environment:
+   DRIVER_SERVICE_BASEURL: driver-service:8079
+   MYSQL_DB_USERNAME: root
+   MYSQL_DB_PASSWORD: abc123
+   MYSQL_DB_HOST: mysql-team
+   MYSQL_DB_PORT: 3306
+
+ race-service:
+  depends_on:
+    - circuit-service
+    - team-service
+  image: bentmelis/race
+  ports:
+    - 8081:8081
+  links:
+    - circuit-service
+    - team-service
+  environment:
+   CIRCUIT_SERVICE_BASEURL: circuit-service:8080
+   TEAM_INFO_SERVICE_BASEURL: team-service:8082
+   MYSQL_DB_USERNAME: root
+   MYSQL_DB_PASSWORD: abc123
+   MYSQL_DB_HOST: mysql-race
+   MYSQL_DB_PORT: 3305
+
+ api-gateway:
+   depends_on:
+     - circuit-service
+     - race-service
+   image: bentmelis/ede-api-gateway
+   ports:
+     - 8083:8083
+   links:
+     - circuit-service
+     - race-service
+   environment:
+     CIRCUIT_SERVICE_BASEURL: circuit-service:8080
+     RACE_SERVICE_BASEURL: race-service:8081
+
+volumes:
+ mongodb_circuit_data:
+ mysql_driver_data:
+ mysql_team_data:
+ mysql_race_data:
