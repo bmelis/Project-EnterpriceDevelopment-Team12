@@ -52,10 +52,10 @@ public class TeamService {
                                 .build()
                 ).toList();
     }
-    public boolean createTeam(TeamRequest raceRequest) {
+    public boolean createTeam(TeamRequest teamRequest) {
         Team team = new Team();
 
-        List<TeamDriver> teamDrivers = raceRequest.getTeamDriverDtoList()
+        List<TeamDriver> teamDrivers = teamRequest.getTeamDriverDtoList()
                 .stream()
                 .map(this::mapToTeamDriver)
                 .toList();

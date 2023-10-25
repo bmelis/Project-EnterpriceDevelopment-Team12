@@ -23,4 +23,7 @@ public class Team {
     private Date since;
     @OneToMany(cascade = CascadeType.ALL)
     private List<TeamDriver> teamDriverList;
+
+    public Team(String mclaren, Date date) {
+    }
 }
