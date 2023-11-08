@@ -7,6 +7,7 @@ import fact.it.race.repository.RaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -20,6 +21,12 @@ public class RaceService {
 
     private final RaceRepository raceRepository;
     private final WebClient webClient;
+
+    @Value("${circuitservice.baseurl}")
+    private String circuitServiceBaseUrl;
+
+    @Value("${teamservice.baseurl}")
+    private String teamServiceBaseUrl;
 
     public boolean createRace(RaceRequest raceRequest) {
         Race race = new Race();
@@ -50,20 +57,7 @@ public class RaceService {
                 .bodyToMono(CircuitResponse[].class)
                 .block();
 
-//        race.getRaceTeamList().stream()
-//                .map(raceTeam -> {
-//                    CircuitResponse circuit = Arrays.stream(productResponseArray)
-//                            .filter(p -> p.getSkuCode().equals(orderItem.getSkuCode()))
-//                            .findFirst()
-//                            .orElse(null);
-//                    if (product != null) {
-//                        orderItem.setPrice(product.getPrice());
-//                    }
-//                    return orderItem;
-//                })
-//                .collect(Collectors.toList());
-//
-//        orderRepository.save(order);
+        raceRepository.save(race);
         return true;
     }
 
