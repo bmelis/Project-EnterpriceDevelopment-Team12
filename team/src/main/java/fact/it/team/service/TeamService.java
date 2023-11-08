@@ -9,6 +9,7 @@ import fact.it.team.model.TeamDriver;
 import fact.it.team.repository.TeamRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -26,6 +27,9 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final WebClient webClient;
 
+    @Value("${driverservice.baseurl}")
+    private String driverServiceBaseUrl;
+
     @PostConstruct
     public void loadData() {
         if(teamRepository.count() > 0){
@@ -40,17 +44,6 @@ public class TeamService {
             teamRepository.save(team);
             teamRepository.save(team1);
         }
-    }
-    @Transactional(readOnly = true)
-    public List<TeamResponse> isInTeam(List<String> name) {
-
-        return teamRepository.findByFirstName(name).stream()
-                .map(team ->
-                        TeamResponse.builder()
-                                .name(team.getName())
-                                .since(team.getSince())
-                                .build()
-                ).toList();
     }
     public boolean createTeam(TeamRequest teamRequest) {
         Team team = new Team();
@@ -67,7 +60,7 @@ public class TeamService {
                 .toList();
 
         DriverResponse[] teamResponseArray = webClient.get()
-                .uri("http://localhost:8079/api/driver",
+                .uri("http://"+ driverServiceBaseUrl+ "api/driver",
                         uriBuilder -> uriBuilder.queryParam("firstname", names).build())
                 .retrieve()
                 .bodyToMono(DriverResponse[].class)

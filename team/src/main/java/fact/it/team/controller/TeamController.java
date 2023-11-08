@@ -17,12 +17,6 @@ public class TeamController {
     private final TeamService teamService;
 
     // http://localhost:8082/api/inventory?skuCode=tube6in&skuCode=beam10ft
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<TeamResponse> isInTeam
-    (@RequestParam List<String> name) {
-        return teamService.isInTeam(name);
-    }
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public String createTeam(@RequestBody TeamRequest teamRequest) {
