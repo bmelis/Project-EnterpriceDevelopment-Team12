@@ -44,14 +44,14 @@ public class RaceService {
                 .toList();
 
         TeamResponse[] teamResponseArray = webClient.get()
-                .uri("http://localhost:8082/api/team",
+                .uri("http://"+teamServiceBaseUrl+"/api/team",
                         uriBuilder -> uriBuilder.queryParam("name", names).build())
                 .retrieve()
                 .bodyToMono(TeamResponse[].class)
                 .block();
 
         CircuitResponse[] circuitResponseArray = webClient.get()
-                .uri("http://localhost:8080/api/circuit",
+                .uri("http://"+ circuitServiceBaseUrl+"/api/circuit",
                         uriBuilder -> uriBuilder.queryParam("name", names).build())
                 .retrieve()
                 .bodyToMono(CircuitResponse[].class)
