@@ -11,4 +11,7 @@ public class TeamDriverDto {
     private Long id;
     private String firstName;
     private String lastName;
+
+    public TeamDriverDto(String john, String doe) {
+    }
 }
