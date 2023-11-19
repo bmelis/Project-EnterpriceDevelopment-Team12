@@ -4,14 +4,14 @@ services:
   ports:
     - 27017:27017
   volumes:
-    - mongodb_product_data:/data/db
+    -  mongodb_circuit_data:/data/db
     
  mysql-race:
   image: mysql:latest
   ports:
     - 3305:3305
   volumes:
-    - mysql_order_data:/var/lib/mysql
+    - mysql_race_data:/var/lib/mysql
   environment:
    MYSQL_ROOT_PASSWORD: abc123
     
@@ -20,7 +20,7 @@ services:
   ports:
     - 3307:3306
   volumes:
-    - mysql_inventory_data:/var/lib/mysql
+    -  mysql_team_data:/var/lib/mysql
   environment:
    MYSQL_ROOT_PASSWORD: abc123
 
@@ -29,7 +29,7 @@ services:
   ports:
     - 3304:3304
   volumes:
-    - mysql_inventory_data:/var/lib/mysql
+    - mysql_driver_data:/var/lib/mysql
   environment:
    MYSQL_ROOT_PASSWORD: abc123
     
