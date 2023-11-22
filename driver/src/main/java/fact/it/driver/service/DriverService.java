@@ -31,7 +31,7 @@ public class DriverService {
     }
 
     @Transactional(readOnly = true)
-    public List<DriverResponse> isInDriver(List<String> firstName) {
+    public List<DriverResponse> isInDriver(String firstName) {
 
         return driverRepository.findByFirstName(firstName).stream()
                 .map(driver ->
