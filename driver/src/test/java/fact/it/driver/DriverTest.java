@@ -40,20 +40,18 @@ class DriverTest {
     }
 
     @Test
-    void isInDriver_shouldReturnDriversWithGivenFirstName() {
-        // given
-        List<String> firstName = List.of("Michiel", "Bent");
-        List<Driver> drivers = List.of(driver1, driver2);
-        when(driverRepository.findByFirstName(firstName)).thenReturn(drivers);
+    public void testIsInDriver() {
+        String firstName = "John";
+        Driver driver = new Driver();
+        driver.setFirstName("John");
+        driver.setLastName("Doe");
 
-        // when
+        when(driverRepository.findByFirstName(firstName)).thenReturn(List.of(driver));
+
         List<DriverResponse> result = driverService.isInDriver(firstName);
 
-        // then
-        assertEquals(2, result.size());
-        assertEquals("Michiel", result.get(0).getFirstName());
-        assertEquals("Van Loy", result.get(0).getLastName());
-        assertEquals("Bent", result.get(1).getFirstName());
-        assertEquals("Melis", result.get(1).getLastName());
+        assertEquals(1, result.size());
+        assertEquals("John", result.get(0).getFirstName());
+        assertEquals("Doe", result.get(0).getLastName());
     }
 }
