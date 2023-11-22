@@ -9,7 +9,7 @@ services:
  mysql-race:
   image: mysql:latest
   ports:
-    - 3305:3305
+    - 3305:3306
   volumes:
     - mysql_race_data:/var/lib/mysql
   environment:
@@ -27,7 +27,7 @@ services:
  mysql-driver:
   image: mysql:latest
   ports:
-    - 3304:3304
+    - 3304:3306
   volumes:
     - mysql_driver_data:/var/lib/mysql
   environment:
