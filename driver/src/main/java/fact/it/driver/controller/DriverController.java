@@ -16,7 +16,7 @@ public class DriverController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<DriverResponse> isInDriver
-            (@RequestParam List<String> firstName) {
+            (@RequestParam String firstName) {
         return driverService.isInDriver(firstName);
     }
 }

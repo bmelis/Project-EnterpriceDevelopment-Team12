@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface DriverRepository extends JpaRepository<Driver, Long> {
-    List<Driver> findByFirstName(List<String> firstName);
+    List<Driver> findByFirstName(String firstName);
 
 }
