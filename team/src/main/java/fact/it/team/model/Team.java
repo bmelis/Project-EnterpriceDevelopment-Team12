@@ -18,9 +18,7 @@ import java.util.List;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String name;
     private Date since;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<TeamDriver> teamDriverList;
 }

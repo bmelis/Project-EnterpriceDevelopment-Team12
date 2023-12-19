@@ -20,7 +20,6 @@ public class CircuitService {
     @PostConstruct
     public void loadData() {
         Circuit circuit = new Circuit();
-        System.out.println("triggered!!!!!!");
         circuit.setId(1);
         circuit.setName("spa");
         circuit.setCountry("Belgium");
