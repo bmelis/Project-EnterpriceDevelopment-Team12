@@ -34,10 +34,10 @@ spring:
         - id: circuit-service-id
           uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
           predicates:
-            - Path=/circuit/1
+            - Path=/circuit/{id}
             - Method=GET
           filters:
-            - SetPath=/api/circuit/1
+            - SetPath=/api/circuit/{id}
         - id: race-service
           uri: http://${RACE_SERVICE_BASEURL:localhost:8081}
           predicates:
