@@ -20,7 +20,7 @@ public class CircuitController {
     public ResponseEntity<CircuitResponse> getCircuitById(@PathVariable int id) {
         return circuitService.getCircuitById(id);
     }
-    @GetMapping
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<CircuitResponse> getAllCircuits() {
         return circuitService.getAllCircuits();
