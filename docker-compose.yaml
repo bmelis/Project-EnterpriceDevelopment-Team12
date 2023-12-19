@@ -105,7 +105,7 @@ services:
      - circuit-service
      - race-service
    environment:
-     TEAM_SERVICE_BASEURL: race-service:8082
+     TEAM_SERVICE_BASEURL: team-service:8082
      RACE_SERVICE_BASEURL: race-service:8081
      CIRCUIT_SERVICE_BASEURL: circuit-service:8080
      DRIVER_SERVICE_BASEURL: driver-service:8079
