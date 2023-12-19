@@ -105,8 +105,10 @@ services:
      - circuit-service
      - race-service
    environment:
-     CIRCUIT_SERVICE_BASEURL: circuit-service:8080
+     TEAM_SERVICE_BASEURL: race-service:8082
      RACE_SERVICE_BASEURL: race-service:8081
+     CIRCUIT_SERVICE_BASEURL: circuit-service:8080
+     DRIVER_SERVICE_BASEURL: driver-service:8079
 
 volumes:
  mongodb_circuit_data:
