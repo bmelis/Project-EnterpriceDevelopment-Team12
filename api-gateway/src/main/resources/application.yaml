@@ -24,13 +24,6 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: circuit-service
-          uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
-          predicates:
-            - Path=/circuit
-            - Method=POST
-          filters:
-            - SetPath=/api/circuit
         - id: circuit-service-all
           uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
           predicates:
