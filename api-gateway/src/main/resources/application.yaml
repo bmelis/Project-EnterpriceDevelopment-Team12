@@ -24,23 +24,17 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: circuit-service-all
+        - id: circuit-all
           uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
           predicates:
             - Path=/circuit
             - Method=GET
           filters:
-            - SetPath=/api/circuit/all
-        - id: circuit-service-id
+            - SetPath=/api/circuit
+        - id: circuit-id
           uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
           predicates:
             - Path=/circuit/{id}
             - Method=GET
           filters:
             - SetPath=/api/circuit/{id}
-        - id: race-service
-          uri: http://${RACE_SERVICE_BASEURL:localhost:8081}
-          predicates:
-            - Path=/race
-          filters:
-            - SetPath=/api/race

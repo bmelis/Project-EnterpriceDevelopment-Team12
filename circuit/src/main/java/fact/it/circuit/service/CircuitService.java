@@ -19,38 +19,41 @@ public class CircuitService {
     private final CircuitRepository circuitRepository;
     @PostConstruct
     public void loadData() {
-        if(circuitRepository.count() > 0){
-            Circuit circuit = new Circuit();
-            circuit.setId(1);
-            circuit.setCountry("Belgium");
-            circuit.setLenght(7004);
+        Circuit circuit = new Circuit();
+        circuit.setId(1);
+        circuit.setName("spa");
+        circuit.setCountry("Belgium");
+        circuit.setLenght(7004);
 
-            Circuit circuit1 = new Circuit();
-            circuit1.setId(2);
-            circuit1.setCountry("Netherlands");
-            circuit1.setLenght(4259);
+        Circuit circuit1 = new Circuit();
+        circuit1.setId(2);
+        circuit1.setName("zandvoort");
+        circuit1.setCountry("Netherlands");
+        circuit1.setLenght(4259);
 
-            Circuit circuit2 = new Circuit();
-            circuit2.setId(3);
-            circuit2.setCountry("Spain");
-            circuit2.setLenght(4675);
+        Circuit circuit2 = new Circuit();
+        circuit2.setId(3);
+        circuit2.setName("barcelona");
+        circuit2.setCountry("Spain");
+        circuit2.setLenght(4675);
 
-            Circuit circuit3 = new Circuit();
-            circuit3.setId(4);
-            circuit3.setCountry("Japan");
-            circuit3.setLenght(5807);
+        Circuit circuit3 = new Circuit();
+        circuit3.setId(4);
+        circuit3.setName("suzuka");
+        circuit3.setCountry("Japan");
+        circuit3.setLenght(5807);
 
-            Circuit circuit4 = new Circuit();
-            circuit4.setId(5);
-            circuit4.setCountry("Mexico");
-            circuit4.setLenght(4304);
+        Circuit circuit4 = new Circuit();
+        circuit4.setId(5);
+        circuit4.setName("Harmanos rodriguez");
+        circuit4.setCountry("Mexico");
+        circuit4.setLenght(4304);
 
-            circuitRepository.save(circuit);
-            circuitRepository.save(circuit1);
-            circuitRepository.save(circuit2);
-            circuitRepository.save(circuit3);
-            circuitRepository.save(circuit4);
-        }
+        circuitRepository.save(circuit);
+        circuitRepository.save(circuit1);
+        circuitRepository.save(circuit2);
+        circuitRepository.save(circuit3);
+        circuitRepository.save(circuit4);
     }
     public List<CircuitResponse> getAllCircuits() {
         List<Circuit> products = circuitRepository.findAll();
