@@ -30,7 +30,14 @@ spring:
             - Path=/circuit
             - Method=GET
           filters:
-            - SetPath=/api/circuit
+            - SetPath=/api/circuit/all
+        - id: circuit-service-all
+          uri: http://${CIRCUIT_SERVICE_BASEURL:localhost:8080}
+          predicates:
+            - Path=/circuit/1
+            - Method=GET
+          filters:
+            - SetPath=/api/circuit/1
         - id: race-service
           uri: http://${RACE_SERVICE_BASEURL:localhost:8081}
           predicates:
