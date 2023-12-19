@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface TeamRepository extends JpaRepository<Team, Long> {
+public interface TeamRepository extends JpaRepository<Team, Integer> {
 
 }

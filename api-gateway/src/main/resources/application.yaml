@@ -38,3 +38,38 @@ spring:
             - Method=GET
           filters:
             - SetPath=/api/circuit/{id}
+        - id: team-all
+          uri: http://${TEAM_SERVICE_BASEURL:localhost:8082}
+          predicates:
+            - Path=/team
+            - Method=GET
+          filters:
+            - SetPath=/api/team
+        - id: team-id
+          uri: http://${TEAM_SERVICE_BASEURL:localhost:8082}
+          predicates:
+            - Path=/team/{id}
+            - Method=GET
+          filters:
+            - SetPath=/api/team/{id}
+        - id: team-id
+          uri: http://${DRIVER_SERVICE_BASEURL:localhost:8079}
+          predicates:
+            - Path=/driver/{id}
+            - Method=GET
+          filters:
+            - SetPath=/api/driver/{teamId}
+        - id: race-all
+          uri: http://${RACE_SERVICE_BASEURL:localhost:8081}
+          predicates:
+            - Path=/race
+            - Method=GET,POST
+          filters:
+            - SetPath=/api/race
+        - id: race-id
+          uri: http://${RACE_SERVICE_BASEURL:localhost:8081}
+          predicates:
+            - Path=/race/{id}
+            - Method=GET,PUT,DELETE
+          filters:
+            - SetPath=/api/race/{id}

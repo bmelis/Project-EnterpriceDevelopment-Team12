@@ -1,6 +1,5 @@
 package fact.it.team.dto;
 
-import fact.it.team.model.TeamDriver;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class TeamResponse {
+    private int id;
     private String name;
     private Date since;
-    private List<TeamDriverDto> teamDriverList;
 }
