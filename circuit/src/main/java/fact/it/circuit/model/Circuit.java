@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Data
 public class Circuit {
-    private String id;
+    private int id;
     private String name;
     private Integer lenght;
     private String country;

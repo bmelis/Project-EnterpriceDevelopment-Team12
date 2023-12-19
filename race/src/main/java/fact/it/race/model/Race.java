@@ -1,10 +1,7 @@
 package fact.it.race.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -15,12 +12,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Race {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     private String raceName;
     private Date raceDate;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<RaceTeam> raceTeamList;
+    private int circuitId;
+    private int teamId;
 }

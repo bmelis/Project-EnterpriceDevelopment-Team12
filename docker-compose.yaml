@@ -57,7 +57,7 @@ services:
    MYSQL_DB_USERNAME: root
    MYSQL_DB_PASSWORD: abc123
    MYSQL_DB_HOST: mysql-driver
-   MYSQL_DB_PORT: 3304  
+   MYSQL_DB_PORT: 3304
    
  team-service:
   depends_on:

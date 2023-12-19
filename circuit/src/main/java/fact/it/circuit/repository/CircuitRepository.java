@@ -3,9 +3,8 @@ package fact.it.circuit.repository;
 import fact.it.circuit.model.Circuit;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface CircuitRepository extends MongoRepository<Circuit, String> {
-    List<Circuit> findByName(List<String> name);
+public interface CircuitRepository extends MongoRepository<Circuit, Integer> {
 
 }

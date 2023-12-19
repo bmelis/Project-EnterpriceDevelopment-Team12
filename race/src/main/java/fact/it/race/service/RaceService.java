@@ -2,17 +2,21 @@ package fact.it.race.service;
 
 import fact.it.race.dto.*;
 import fact.it.race.model.Race;
-import fact.it.race.model.RaceTeam;
 import fact.it.race.repository.RaceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,64 +32,92 @@ public class RaceService {
     @Value("${teamservice.baseurl}")
     private String teamServiceBaseUrl;
 
-    public boolean createRace(RaceRequest raceRequest) {
-        Race race = new Race();
-        race.setId(UUID.randomUUID().toString());
-
-        List<RaceTeam> raceTeams = raceRequest.getRaceTeamDtoList()
-                .stream()
-                .map(this::mapToRaceTeam)
-                .toList();
-
-        race.setRaceTeamList(raceTeams);
-
-        List<String> names = race.getRaceTeamList().stream()
-                .map(RaceTeam::getName)
-                .toList();
-
-        TeamResponse[] teamResponseArray = webClient.get()
-                .uri("http://"+teamServiceBaseUrl+"/api/team",
-                        uriBuilder -> uriBuilder.queryParam("name", names).build())
+    public CircuitResponse getCircuit(int id) {
+        return webClient.get()
+                .uri("http://" + circuitServiceBaseUrl + "/api/circuit/" + id)
                 .retrieve()
-                .bodyToMono(TeamResponse[].class)
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        clientResponse -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Circuit not found")))
+                .bodyToMono(CircuitResponse.class)
                 .block();
-
-        CircuitResponse[] circuitResponseArray = webClient.get()
-                .uri("http://"+ circuitServiceBaseUrl+"/api/circuit",
-                        uriBuilder -> uriBuilder.queryParam("name", names).build())
-                .retrieve()
-                .bodyToMono(CircuitResponse[].class)
-                .block();
-
-        raceRepository.save(race);
-        return true;
     }
+
+    public TeamResponse getTeam(int id) {
+        return webClient.get()
+                .uri("http://" + teamServiceBaseUrl + "/api/team/" + id)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        clientResponse -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "team not found")))
+                .bodyToMono(TeamResponse.class)
+                .block();
+    }
+
+    public RaceResponse createRace(RaceRequest raceRequest) {
+        CircuitResponse circuit = getCircuit(raceRequest.getCircuitId());
+        TeamResponse team = getTeam(raceRequest.getTeamId());
+
+        Race race = Race.builder()
+                .raceName(raceRequest.getRaceName())
+                .raceDate(raceRequest.getRaceDate())
+                .teamId(team.getId())
+                .circuitId(circuit.getId())
+                .build();
+        return mapToRaceResponse(race);
+    }
+
+    public void deleteRace(int id){
+        try{
+            raceRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new NoSuchElementException("Race with ID " + id + " not found");
+        }
+    }
+    public RaceResponse updateRace(RaceRequest raceRequest, int id) {
+        CircuitResponse circuit = getCircuit(raceRequest.getCircuitId());
+        TeamResponse team = getTeam(raceRequest.getTeamId());
+        Optional<Race> optionalRace  = raceRepository.findById(id);
+
+        if (optionalRace.isPresent()) {
+            Race race = optionalRace.get();
+
+            race.setRaceDate(raceRequest.getRaceDate());
+            race.setRaceName(raceRequest.getRaceName());
+            race.setTeamId(team.getId());
+            race.setCircuitId(circuit.getId());
+
+            return mapToRaceResponse(race);
+        } else {
+            throw new NoSuchElementException("Race with ID " + id + " not found");
+        }
+    }
+
 
     public List<RaceResponse> getAllRaces() {
         List<Race> races = raceRepository.findAll();
 
-        return races.stream()
-                .map(race -> new RaceResponse(
-                        race.getRaceName(),
-                        mapToRaceTeamDto(race.getRaceTeamList())
-                ))
-                .collect(Collectors.toList());
+        return races.stream().map(this::mapToRaceResponse).toList();
+    }
+    public RaceResponse findById(int id) {
+        Optional<Race> optionalRace = raceRepository.findById(id);
+        if(optionalRace.isPresent()) {
+            Race race = optionalRace.get();
+            return mapToRaceResponse(race);
+        } else {
+            // Return a ResponseEntity with a 404 Not Found status
+            throw new NoSuchElementException("Race with ID " + id + " not found");
+        }
     }
 
-    private RaceTeam mapToRaceTeam(RaceTeamDto raceTeamDto) {
-        RaceTeam raceTeam = new RaceTeam();
-        raceTeam.setName(raceTeamDto.getName());
-        raceTeam.setSince(raceTeamDto.getSince());
-        return raceTeam;
-    }
-
-    private List<RaceTeamDto> mapToRaceTeamDto(List<RaceTeam> raceTeams) {
-        return raceTeams.stream()
-                .map(raceTeam -> new RaceTeamDto(
-                        raceTeam.getId(),
-                        raceTeam.getName(),
-                        raceTeam.getSince()
-                ))
-                .collect(Collectors.toList());
+    private RaceResponse mapToRaceResponse(Race race) {
+        return RaceResponse.builder()
+                .id(race.getId())
+                .raceName(race.getRaceName())
+                .raceDate(race.getRaceDate())
+                .circuitId(race.getCircuitId())
+                .teamId(race.getTeamId())
+                .build();
     }
 }

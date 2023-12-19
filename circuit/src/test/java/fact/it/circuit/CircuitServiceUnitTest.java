@@ -1,91 +1,58 @@
 package fact.it.circuit;
 
-import fact.it.circuit.dto.CircuitRequest;
+import fact.it.circuit.controller.CircuitController;
 import fact.it.circuit.dto.CircuitResponse;
 import fact.it.circuit.model.Circuit;
 import fact.it.circuit.repository.CircuitRepository;
 import fact.it.circuit.service.CircuitService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
+@ExtendWith(MockitoExtension.class)
 
-public class CircuitServiceUnitTest {
-
+class CircuitControllerTest {
+    @Mock
     private CircuitService circuitService;
 
-    @Mock
-    private CircuitRepository circuitRepository;
+    @InjectMocks
+    private CircuitController circuitController;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this); // Initialize annotated mocks
-        circuitService = new CircuitService(circuitRepository);
+    @Test
+    void testGetCircuitById() {
+        int circuitId = 1;
+        CircuitResponse expectedResponse = new CircuitResponse();
+
+        when(circuitService.getCircuitById(circuitId)).thenReturn(ResponseEntity.ok(expectedResponse));
+
+        ResponseEntity<CircuitResponse> actualResponse = circuitController.getCircuitById(circuitId);
+
+        assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+        assertEquals(expectedResponse, actualResponse.getBody());
     }
 
     @Test
-    void createCircuitTest() {
-        // Given
-        CircuitRequest circuitRequest = new CircuitRequest();
-        circuitRequest.setName("Spa");
-        circuitRequest.setLenght(1000);
-        circuitRequest.setCountry("Belgium");
+    void testGetAllCircuits() {
+        List<CircuitResponse> expectedResponses = Arrays.asList(new CircuitResponse(), new CircuitResponse());
 
-        // When
-        circuitService.createCircuit(circuitRequest);
+        when(circuitService.getAllCircuits()).thenReturn(expectedResponses);
 
-        // Then
-        Mockito.verify(circuitRepository, Mockito.times(1)).save(Mockito.any(Circuit.class));
-    }
+        List<CircuitResponse> actualResponses = circuitController.getAllCircuits();
 
-    @Test
-    void getAllCircuitsTest() {
-        // Arrange
-        Circuit circuit = new Circuit();
-        circuit.setName("Spa");
-        circuit.setLenght(1000);
-        circuit.setCountry("Belgium");
-
-        when(circuitRepository.findAll()).thenReturn(Arrays.asList(circuit));
-
-        // Act
-        List<CircuitResponse> circuits = circuitService.getAllCircuits();
-
-        // Assert
-        assertEquals(1, circuits.size());
-        assertEquals("Spa", circuits.get(0).getName());
-        assertEquals(1000, circuits.get(0).getLenght());
-        assertEquals("Belgium", circuits.get(0).getCountry());
-
-        verify(circuitRepository, times(1)).findAll();
-    }
-
-    @Test
-    void getAllCircuitsByNameTest() {
-        // Arrange
-        Circuit circuit = new Circuit();
-        circuit.setName("Spa");
-        circuit.setLenght(1000);
-        circuit.setCountry("Belgium");
-
-        when(circuitRepository.findByName(Arrays.asList("Spa"))).thenReturn(Arrays.asList(circuit));
-
-        // Act
-        List<CircuitResponse> circuits = circuitService.getAllCircuitsByName(Arrays.asList("Spa"));
-
-        // Assert
-        assertEquals(1, circuits.size());
-        assertEquals("Spa", circuits.get(0).getName());
-        assertEquals(1000, circuits.get(0).getLenght());
-        assertEquals("Belgium", circuits.get(0).getCountry());
-
-        verify(circuitRepository, times(1)).findByName(Arrays.asList(circuit.getName()));
+        assertEquals(expectedResponses.size(), actualResponses.size());
+        assertTrue(expectedResponses.containsAll(actualResponses) && actualResponses.containsAll(expectedResponses));
     }
 }

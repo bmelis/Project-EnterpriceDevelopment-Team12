@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeamResponse {
+    private int id;
     private String name;
     private Date since;
 }

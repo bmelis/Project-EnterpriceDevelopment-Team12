@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CircuitResponse {
-    private String id;
+    private int id;
     private String name;
     private Integer length;
     private String country;
