@@ -11,12 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,10 +26,6 @@ public class TeamUnitTest {
     @Mock
     private TeamRepository teamRepository;
 
-    @BeforeEach
-    void setUp() {
-        ReflectionTestUtils.setField(teamService, "driverServiceBaseUrl", "http://localhost:8079");
-    }
     @Test
     public void testGetAllTeams() {
         Team team = new Team();
@@ -45,7 +39,6 @@ public class TeamUnitTest {
 
         when(teamRepository.findAll()).thenReturn(Arrays.asList(team,team2));
 
-
         // Act
         List<TeamResponse> result = teamService.getAllTeams();
 
@@ -58,7 +51,7 @@ public class TeamUnitTest {
         Team team = new Team();
         team.setName("Mercedes");
         team.setSince(new Date(1,5,2023));
-        
+
         when(teamRepository.findById(1)).thenReturn(Optional.of(team));
 
         // Act

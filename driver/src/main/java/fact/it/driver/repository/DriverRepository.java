@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface DriverRepository extends JpaRepository<Driver, Long> {
-    List<Driver> findByFirstName(String firstName);
-
+public interface DriverRepository extends JpaRepository<Driver, Integer> {
+    List<Driver> getDriversByTeamId(int id);
 }
