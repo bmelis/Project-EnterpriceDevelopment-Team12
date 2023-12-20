@@ -42,9 +42,9 @@ public class DriverService {
         driver5.setTeamId(3);
 
         Driver driver6 = new Driver();
-        driver4.setFirstName("Charles");
-        driver4.setLastName("Leclerc");
-        driver4.setTeamId(3);
+        driver6.setFirstName("Charles");
+        driver6.setLastName("Leclerc");
+        driver6.setTeamId(3);
 
         driverRepository.save(driver);
         driverRepository.save(driver2);
