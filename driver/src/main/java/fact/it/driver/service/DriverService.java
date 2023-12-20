@@ -17,15 +17,41 @@ public class DriverService {
     @PostConstruct
     public void loadData() {
         Driver driver = new Driver();
-        driver.setFirstName("Michiel");
-        driver.setLastName("Van Loy");
+        driver.setFirstName("Max");
+        driver.setLastName("Verstappen");
+        driver.setTeamId(1);
 
         Driver driver2 = new Driver();
-        driver.setFirstName("Bent");
-        driver.setLastName("Melis");
+        driver2.setFirstName("Sergio");
+        driver2.setLastName("Perez");
+        driver2.setTeamId(1);
+
+        Driver driver3 = new Driver();
+        driver3.setFirstName("Lewis");
+        driver3.setLastName("Hamilton");
+        driver3.setTeamId(2);
+
+        Driver driver4 = new Driver();
+        driver4.setFirstName("George");
+        driver4.setLastName("Russel");
+        driver4.setTeamId(2);
+
+        Driver driver5 = new Driver();
+        driver5.setFirstName("Carlos");
+        driver5.setLastName("Sainz");
+        driver5.setTeamId(3);
+
+        Driver driver6 = new Driver();
+        driver4.setFirstName("Charles");
+        driver4.setLastName("Leclerc");
+        driver4.setTeamId(3);
 
         driverRepository.save(driver);
         driverRepository.save(driver2);
+        driverRepository.save(driver3);
+        driverRepository.save(driver4);
+        driverRepository.save(driver5);
+        driverRepository.save(driver6);
     }
 
     public List<DriverResponse> findDriverByTeamId(int teamId) {
