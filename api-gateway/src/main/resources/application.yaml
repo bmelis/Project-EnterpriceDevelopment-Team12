@@ -55,7 +55,7 @@ spring:
         - id: driver-id
           uri: http://${DRIVER_SERVICE_BASEURL:localhost:8079}
           predicates:
-            - Path=/driver/{id}
+            - Path=/driver/{teamId}
             - Method=GET
           filters:
             - SetPath=/api/driver/{teamId}
