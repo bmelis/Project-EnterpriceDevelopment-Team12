@@ -1,0 +1,705 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+  namespace: default
+spec:
+  ports:
+    - name: "8083"
+      port: 8083
+      targetPort: 8083
+  selector:
+    io.kompose.service: api-gateway
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: circuit-service
+  name: circuit-service
+  namespace: default
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+  selector:
+    io.kompose.service: circuit-service
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: driver-service
+  name: driver-service
+  namespace: default
+spec:
+  ports:
+    - name: "8079"
+      port: 8079
+      targetPort: 8079
+  selector:
+    io.kompose.service: driver-service
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mongo-circuit
+  name: mongo-circuit
+  namespace: default
+spec:
+  ports:
+    - name: "27017"
+      port: 27017
+      targetPort: 27017
+  selector:
+    io.kompose.service: mongo-circuit
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-driver
+  name: mysql-driver
+  namespace: default
+spec:
+  ports:
+    - name: "3304"
+      port: 3304
+      targetPort: 3306
+  selector:
+    io.kompose.service: mysql-driver
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-race
+  name: mysql-race
+  namespace: default
+spec:
+  ports:
+    - name: "3305"
+      port: 3305
+      targetPort: 3306
+  selector:
+    io.kompose.service: mysql-race
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-team
+  name: mysql-team
+  namespace: default
+spec:
+  ports:
+    - name: "3307"
+      port: 3307
+      targetPort: 3306
+  selector:
+    io.kompose.service: mysql-team
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: race-service
+  name: race-service
+  namespace: default
+spec:
+  ports:
+    - name: "8081"
+      port: 8081
+      targetPort: 8081
+  selector:
+    io.kompose.service: race-service
+status:
+  loadBalancer: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: team-service
+  name: team-service
+  namespace: default
+spec:
+  ports:
+    - name: "8082"
+      port: 8082
+      targetPort: 8082
+  selector:
+    io.kompose.service: team-service
+status:
+  loadBalancer: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: api-gateway
+    spec:
+      containers:
+        - env:
+            - name: CIRCUIT_SERVICE_BASEURL
+              value: circuit-service:8080
+            - name: DRIVER_SERVICE_BASEURL
+              value: driver-service:8079
+            - name: RACE_SERVICE_BASEURL
+              value: race-service:8081
+            - name: TEAM_SERVICE_BASEURL
+              value: team-service:8082
+          image: bentmelis/ede-api-gateway
+          name: api-gateway
+          ports:
+            - containerPort: 8083
+              hostPort: 8083
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: circuit-service
+  name: circuit-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: circuit-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: circuit-service
+    spec:
+      containers:
+        - env:
+            - name: MONGODB_HOST
+              value: mongo-circuit
+            - name: MONGODB_PORT
+              value: "27017"
+          image: bentmelis/circuit
+          name: circuit-service
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: driver-service
+  name: driver-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: driver-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: driver-service
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_DB_HOST
+              value: mysql-driver
+            - name: MYSQL_DB_PASSWORD
+              value: abc123
+            - name: MYSQL_DB_PORT
+              value: "3304"
+            - name: MYSQL_DB_USERNAME
+              value: root
+          image: bentmelis/driver
+          name: driver-service
+          ports:
+            - containerPort: 8079
+              hostPort: 8079
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mongo-circuit
+  name: mongo-circuit
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mongo-circuit
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: mongo-circuit
+    spec:
+      containers:
+        - image: mongo:latest
+          name: mongo-circuit
+          ports:
+            - containerPort: 27017
+              hostPort: 27017
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongodb-circuit-data
+      restartPolicy: Always
+      volumes:
+        - name: mongodb-circuit-data
+          persistentVolumeClaim:
+            claimName: mongodb-circuit-data
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mongodb-circuit-data
+  name: mongodb-circuit-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-driver
+  name: mysql-driver
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mysql-driver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: mysql-driver
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: abc123
+          image: mysql:latest
+          name: mysql-driver
+          ports:
+            - containerPort: 3306
+              hostPort: 3304
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-driver-data
+      restartPolicy: Always
+      volumes:
+        - name: mysql-driver-data
+          persistentVolumeClaim:
+            claimName: mysql-driver-data
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-driver-data
+  name: mysql-driver-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-race
+  name: mysql-race
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mysql-race
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: mysql-race
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: abc123
+          image: mysql:latest
+          name: mysql-race
+          ports:
+            - containerPort: 3306
+              hostPort: 3305
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-race-data
+      restartPolicy: Always
+      volumes:
+        - name: mysql-race-data
+          persistentVolumeClaim:
+            claimName: mysql-race-data
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-race-data
+  name: mysql-race-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-team
+  name: mysql-team
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mysql-team
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: mysql-team
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: abc123
+          image: mysql:latest
+          name: mysql-team
+          ports:
+            - containerPort: 3306
+              hostPort: 3307
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-team-data
+      restartPolicy: Always
+      volumes:
+        - name: mysql-team-data
+          persistentVolumeClaim:
+            claimName: mysql-team-data
+status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-team-data
+  name: mysql-team-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: race-service
+  name: race-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: race-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: race-service
+    spec:
+      containers:
+        - env:
+            - name: CIRCUIT_SERVICE_BASEURL
+              value: circuit-service:8080
+            - name: MYSQL_DB_HOST
+              value: mysql-race
+            - name: MYSQL_DB_PASSWORD
+              value: abc123
+            - name: MYSQL_DB_PORT
+              value: "3305"
+            - name: MYSQL_DB_USERNAME
+              value: root
+            - name: TEAM_INFO_SERVICE_BASEURL
+              value: team-service:8082
+          image: bentmelis/race
+          name: race-service
+          ports:
+            - containerPort: 8081
+              hostPort: 8081
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: team-service
+  name: team-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: team-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/project-enterpricedevelopment-team12-default: "true"
+        io.kompose.service: team-service
+    spec:
+      containers:
+        - env:
+            - name: DRIVER_SERVICE_BASEURL
+              value: driver-service:8079
+            - name: MYSQL_DB_HOST
+              value: mysql-team
+            - name: MYSQL_DB_PASSWORD
+              value: abc123
+            - name: MYSQL_DB_PORT
+              value: "3306"
+            - name: MYSQL_DB_USERNAME
+              value: root
+          image: bentmelis/team
+          name: team-service
+          ports:
+            - containerPort: 8082
+              hostPort: 8082
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
