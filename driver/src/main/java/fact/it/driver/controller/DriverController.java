@@ -4,6 +4,7 @@ import fact.it.driver.dto.DriverResponse;
 import fact.it.driver.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DriverController {
     private final DriverService driverService;
-    @GetMapping
+
+    @GetMapping("/{teamId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<DriverResponse> isInDriver
-            (@RequestParam String firstName) {
-        return driverService.isInDriver(firstName);
+    public List<DriverResponse> getDriversByTeamId(@PathVariable int teamId) {
+        return driverService.findDriverByTeamId(teamId);
     }
 }

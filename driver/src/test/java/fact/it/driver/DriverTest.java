@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,33 +26,24 @@ class DriverTest {
     @InjectMocks
     private DriverService driverService;
 
-    private Driver driver1;
-    private Driver driver2;
-
-    @BeforeEach
-    void setUp() {
-        driver1 = new Driver();
-        driver1.setFirstName("Michiel");
-        driver1.setLastName("Van Loy");
-
-        driver2 = new Driver();
-        driver2.setFirstName("Bent");
-        driver2.setLastName("Melis");
-    }
-
     @Test
-    public void testIsInDriver() {
-        String firstName = "John";
+    public void testGetByTeamId() {
         Driver driver = new Driver();
-        driver.setFirstName("John");
-        driver.setLastName("Doe");
+        driver.setFirstName("Max");
+        driver.setLastName("Verstappen");
+        driver.setTeamId(1);
 
-        when(driverRepository.findByFirstName(firstName)).thenReturn(List.of(driver));
+        Driver driver2 = new Driver();
+        driver2.setFirstName("Sergio");
+        driver2.setLastName("Perez");
+        driver2.setTeamId(1);
 
-        List<DriverResponse> result = driverService.isInDriver(firstName);
+        when(driverRepository.getDriversByTeamId(1)).thenReturn(Arrays.asList(driver, driver2));
 
-        assertEquals(1, result.size());
-        assertEquals("John", result.get(0).getFirstName());
-        assertEquals("Doe", result.get(0).getLastName());
+
+        List<DriverResponse> result = driverService.findDriverByTeamId(1);
+
+        assertEquals("Max", result.get(0).getFirstName());
+        assertEquals("Sergio", result.get(1).getFirstName());
     }
 }

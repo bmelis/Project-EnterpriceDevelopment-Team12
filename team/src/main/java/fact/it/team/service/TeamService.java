@@ -18,11 +18,6 @@ import java.util.*;
 public class TeamService {
 
     private final TeamRepository teamRepository;
-    private final WebClient webClient;
-
-    @Value("${driverservice.baseurl}")
-    private String driverServiceBaseUrl;
-
     @PostConstruct
     public void loadData() {
         Team team = new Team();

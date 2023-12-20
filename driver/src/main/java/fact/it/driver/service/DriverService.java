@@ -16,28 +16,25 @@ public class DriverService {
 
     @PostConstruct
     public void loadData() {
-        if(driverRepository.count() > 0){
-            Driver driver = new Driver();
-            driver.setFirstName("Michiel");
-            driver.setLastName("Van Loy");
+        Driver driver = new Driver();
+        driver.setFirstName("Michiel");
+        driver.setLastName("Van Loy");
 
-            Driver driver2 = new Driver();
-            driver.setFirstName("Bent");
-            driver.setLastName("Melis");
+        Driver driver2 = new Driver();
+        driver.setFirstName("Bent");
+        driver.setLastName("Melis");
 
-            driverRepository.save(driver);
-            driverRepository.save(driver2);
-        }
+        driverRepository.save(driver);
+        driverRepository.save(driver2);
     }
 
-    @Transactional(readOnly = true)
-    public List<DriverResponse> isInDriver(String firstName) {
-
-        return driverRepository.findByFirstName(firstName).stream()
+    public List<DriverResponse> findDriverByTeamId(int teamId) {
+        return driverRepository.getDriversByTeamId(teamId).stream()
                 .map(driver ->
                         DriverResponse.builder()
                                 .firstName(driver.getFirstName())
                                 .lastName(driver.getLastName())
+                                .teamId(driver.getTeamId())
                                 .build()
                 ).toList();
     }

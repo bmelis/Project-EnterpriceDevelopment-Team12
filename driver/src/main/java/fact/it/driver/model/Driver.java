@@ -18,4 +18,5 @@ public class Driver {
     private Long id;
     private String firstName;
     private String lastName;
+    private int teamId;
 }
