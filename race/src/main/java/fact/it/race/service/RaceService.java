@@ -64,6 +64,7 @@ public class RaceService {
                 .teamId(team.getId())
                 .circuitId(circuit.getId())
                 .build();
+        raceRepository.save(race);
         return mapToRaceResponse(race);
     }
 
@@ -87,7 +88,7 @@ public class RaceService {
             race.setRaceName(raceRequest.getRaceName());
             race.setTeamId(team.getId());
             race.setCircuitId(circuit.getId());
-
+            raceRepository.save(race);
             return mapToRaceResponse(race);
         } else {
             throw new NoSuchElementException("Race with ID " + id + " not found");
