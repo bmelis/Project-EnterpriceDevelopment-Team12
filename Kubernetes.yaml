@@ -2,6 +2,86 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: prometheus
+  namespace: default
+spec:
+  ports:
+    - name: web
+      port: 9090
+      targetPort: 9090
+  selector:
+    app: prometheus
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:latest
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: default
+data:
+  prometheus.yml: |-
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+      - job_name: 'api-gateway'
+        static_configs:
+          - targets: ['api-gateway:8083']
+      - job_name: 'circuit-service'
+        static_configs:
+          - targets: ['circuit-service:8080']
+      - job_name: 'driver-service'
+        static_configs:
+          - targets: ['driver-service:8079']
+      - job_name: 'mongo-circuit'
+        static_configs:
+          - targets: ['mongo-circuit:27017']
+      - job_name: 'mysql-driver'
+        static_configs:
+          - targets: ['mysql-driver:3304']
+      - job_name: 'mysql-race'
+        static_configs:
+          - targets: ['mysql-race:3305']
+      - job_name: 'mysql-team'
+        static_configs:
+          - targets: ['mysql-team:3307']
+      - job_name: 'race-service'
+        static_configs:
+          - targets: ['race-service:8081']
+      - job_name: 'team-service'
+        static_configs:
+          - targets: ['team-service:8082']
+---
+apiVersion: v1
+kind: Service
+metadata:
   annotations:
     kompose.cmd: C:\Users\Bent Melis\AppData\Local\Microsoft\WinGet\Links\kompose.exe convert -f docker-compose.yaml -o Kubernetes.yaml
     kompose.version: 1.30.0 (9d8dcb518)
