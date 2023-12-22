@@ -9,6 +9,7 @@ https://api-gateway-bmelis.cloud.okteto.net
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/ac4091aa-7308-47ac-a994-e5648a80b202)
 
 **Race:**
+
 getAll (/race):
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/e46908e4-fdeb-4ffc-a91f-3fc23a8683fc)
 
@@ -26,6 +27,7 @@ Delete (/race/x)
 
 
 **Circuit:**
+
 getAll (/circuit)
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/fa0b497b-794b-49d3-9bc6-befe374d4858)
 
@@ -33,7 +35,8 @@ getById (/circuit/x)
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/7edb6995-d880-465c-9182-f456a11718c5)
 
 
-**Teams**
+**Team:**
+
 getAll (/team)
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/625f15e2-f427-422c-b164-66be9b8c6044)
 
@@ -42,6 +45,7 @@ getById(/team/x)
 
 
 **Driver:**
+
 getDriverByTeamId (/driver/x)
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/f54987ec-b8f5-44a9-8c00-3b48ce25048d)
 
