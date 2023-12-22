@@ -26,7 +26,24 @@ Delete (/race/x)
 
 
 **Circuit:**
+getAll (/circuit)
+![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/fa0b497b-794b-49d3-9bc6-befe374d4858)
 
+getById (/circuit/x)
+![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/7edb6995-d880-465c-9182-f456a11718c5)
+
+
+**Teams**
+getAll (/team)
+![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/625f15e2-f427-422c-b164-66be9b8c6044)
+
+getById(/team/x)
+![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/b6fdacf7-ba8f-479c-9492-8c5473ea894a)
+
+
+**Driver:**
+getDriverByTeamId (/driver/x)
+![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/f54987ec-b8f5-44a9-8c00-3b48ce25048d)
 
 
 
