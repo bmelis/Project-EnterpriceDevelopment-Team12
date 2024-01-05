@@ -7,7 +7,7 @@ API GATEWAY URL:
 https://api-gateway-bmelis.cloud.okteto.net
 
 VIDEO URL:
-https://www.youtube.com/watch?v=bvAunLdsw7k
+https://www.youtube.com/watch?v=9QtyGEKMavc
 
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/ac4091aa-7308-47ac-a994-e5648a80b202)
 
