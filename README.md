@@ -6,7 +6,23 @@ Subject: Formula 1
 API GATEWAY URL:
 https://api-gateway-bmelis.cloud.okteto.net
 
+VIDEO URL:
+https://www.youtube.com/watch?v=bvAunLdsw7k
+
 ![image](https://github.com/bmelis/Project-EnterpriseDevelopment-Team12/assets/71631709/ac4091aa-7308-47ac-a994-e5648a80b202)
+
+**Een woordje uitleg over project**
+
+Als onderwerp van ons project hebben we voor F1 gekozen, hiervoor hebben we een microservice van race, circuit, team en driver. Deze services zullen gebruikt worden om voorspellingen te doen over het winnend team van een specifieke race. Jammer genoeg zijn we er niet tot gekomen om een front-end te maken voor de gebruiker om dit op een gebruiksvriendelijke manier te doen.
+
+De structuur van de microservices kan u zien in onderstaande screenshot. Wat u daar ziet is dat een race bestaat uit 1 circuit en 1 team, en dat een bepaald team bestaat uit 2 drivers.
+
+De overkoepelende microservice is de API gateway service, deze zorgt er eigenlijk voor dat niet iedereen nieuwe voorspellingen kan aanmaken of verwijderen etc. Dit wordt gedaan aan de hand van aan bearer token die de gebruiker moet meegeven. In de races microservice kun je een voorspelling doen met POST, bewerken met UPDATE en verwijderen met DELETE. Natuurlijk is het ook mogelijk alle voorspellingen op te halen met een getAll, maar ook een specifieke met getById. In circuits is er dan weer de mogelijkheid om alle circuits op te halen met een getAll of een specifiek circuit door de getById. Ook in de microservice van teams is er de mogelijk om zowel alle team als één specifiek team op te halen met getAll en getById. Als laatst is er dan de drivers microservice waar er de mogelijkheid is om alle drivers van een bepaald team op te halen met de getByTeamId.
+
+**Extra toevoegingen**
+
+2.2 Kubernetes Manifest .yml
+Als uitbereiding op het project hebben we ervoor gekozen de docker-compose.yml om te zetten naar een Kubernetes Manifest .yml file. Dit hebben we gedaan omdat we dit in het verleden ook al eens hebben moeten doen ne er dus bekend mee waren.
 
 **Race:**
 
